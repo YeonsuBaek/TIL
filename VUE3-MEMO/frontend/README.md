@@ -1,24 +1,18 @@
-# frontend
+## Vue Lecture: Memo App
 
-## Project setup
-```
-npm install
-```
+### Vue 3 강의 - REST API를 이용하여 메모애플리케이션 만들기 (Node.js, Express, MariaDB)  
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+*2022.07.05*
 
-### Compiles and minifies for production
-```
-npm run build
-```
+Vue.js를 더 깊이 공부하고 싶어서 유튜브를 찾아보다가 아프리카도서관님의 강의를 발견하게 되었다.  
+그동안 프론트엔드만을 다뤄봤는데 처음으로 백엔드와 연결할 생각에 벌써 떨리는군...^^  
+프론트엔드와 백엔드는 서로 다른 localhost 주소를 가지고 있어서 이것을 연동하는 작업이 중요한 것 같다.  
+powershell 두 창을 열어서 프론트와 백을 동시에 작동시키는게 신기했다.  
+우선 오늘은 메모장 레이아웃 잡고 내용 추가하는 부분까지 했다.  
+이 앱이 성공적으로 완성된다면 내가 직접 사용할 수 있는 플래서 웹앱을 만들어보고 싶다.  
 
-### Lints and fixes files
-```
-npm run lint
-```
+*2022.07.06*
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+메모 수정과 MariaDB를 이용해 반영구적으로 메모를 저장하는 방법을 배웠다.  
+데이터베이스를 따로 배워본 적은 없었지만 간단한 명령문을 이용해도 나에게 필요한 기능은 다 만들 수 있다는 점이 신기했다.  
+그러고보니 삭제하는 기능이 없네? 언젠가 나 혼자 구현해보고 싶다.
