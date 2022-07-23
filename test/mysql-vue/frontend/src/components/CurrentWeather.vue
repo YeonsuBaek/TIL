@@ -3,19 +3,19 @@
     <ul>
       <li>
         <dt>날씨</dt>
-        <dd>{{ data.weather }}</dd>
+        <dd>{{ state.weather }}</dd>
       </li>
       <li>
         <dt>현재기온</dt>
-        <dd>{{ data.currTemp }}</dd>
+        <dd>{{ state.currTemp }}</dd>
       </li>
       <li>
         <dt>최고기온</dt>
-        <dd>{{ data.highestTemp }}</dd>
+        <dd>{{ state.highestTemp }}</dd>
       </li>
       <li>
         <dt>최저기온</dt>
-        <dd>{{ data.lowestTemp }}</dd>
+        <dd>{{ state.lowestTemp }}</dd>
       </li>
     </ul>
   </div>
@@ -24,8 +24,9 @@
 <script>
 export default {
   name: "CurrentWeather",
+
   props: {
-    data: Object,
+    state: Object,
   },
 };
 </script>
