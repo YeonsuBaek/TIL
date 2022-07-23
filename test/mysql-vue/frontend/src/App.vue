@@ -1,16 +1,14 @@
 <template>
   <div id="app">
-    <CurrentWeather
-      :weather="weather"
-      :currTemp="currTemp"
-      :highestTemp="highestTemp"
-      :lowestTemp="lowestTemp"
-    />
+    <CurrentWeather :data="data" />
   </div>
 </template>
 
 <script>
 import CurrentWeather from "./components/CurrentWeather.vue";
+import Weather from "@/assets/weather.json";
+
+const data = Weather;
 
 export default {
   name: "App",
@@ -19,10 +17,7 @@ export default {
   },
   data() {
     return {
-      weather: "맑음",
-      currTemp: 26,
-      highestTemp: 29,
-      lowestTemp: 23,
+      data,
     };
   },
 };
