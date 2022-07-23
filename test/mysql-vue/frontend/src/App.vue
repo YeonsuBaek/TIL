@@ -1,28 +1,29 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <CurrentWeather
+      :weather="weather"
+      :currTemp="currTemp"
+      :highestTemp="highestTemp"
+      :lowestTemp="lowestTemp"
+    />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import CurrentWeather from "./components/CurrentWeather.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    CurrentWeather,
+  },
+  data() {
+    return {
+      weather: "맑음",
+      currTemp: 26,
+      highestTemp: 29,
+      lowestTemp: 23,
+    };
+  },
+};
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
