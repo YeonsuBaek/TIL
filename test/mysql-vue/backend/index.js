@@ -1,15 +1,14 @@
 const express = require("express");
 const app = express();
 const port = 3000;
+const database = require("./database");
 
-const weather = {
-  weather: "맑음",
-  currTemp: 24,
-  highestTemp: 25,
-  lowestTemp: 19,
-};
 app.get("/api/weather", (req, res) => {
-  res.send(weather);
+  database.query("SELECT * FROM weather_data", (err, data) => {
+    if (!err) {
+      res.send({ data });
+    } else console.log(err);
+  });
 });
 
 app.listen(port, () => {

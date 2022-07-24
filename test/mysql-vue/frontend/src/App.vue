@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <CurrentWeather :state="state.weather" />
+    <CurrentWeather :state="state.data" />
   </div>
 </template>
 
@@ -17,16 +17,16 @@ export default {
 
   setup() {
     const state = reactive({
-      weather: {
+      data: {
         weather: "비",
-        currTemp: 1,
-        highestTemp: 2,
-        lowestTemp: 0,
+        curr_temp: 1,
+        highest_temp: 2,
+        lowest_temp: 0,
       },
     });
 
     axios.get("/api/weather").then((res) => {
-      state.weather = res.data;
+      state.data = res.data.data[1];
     });
 
     return {

@@ -7,15 +7,15 @@
       </li>
       <li>
         <dt>현재기온</dt>
-        <dd>{{ state.currTemp }}</dd>
+        <dd>{{ state.curr_temp }}</dd>
       </li>
       <li>
         <dt>최고기온</dt>
-        <dd>{{ state.highestTemp }}</dd>
+        <dd>{{ state.highest_temp }}</dd>
       </li>
       <li>
         <dt>최저기온</dt>
-        <dd>{{ state.lowestTemp }}</dd>
+        <dd>{{ state.lowest_temp }}</dd>
       </li>
     </ul>
   </div>
