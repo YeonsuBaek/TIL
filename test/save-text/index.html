@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>📧 Message 📧</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div id="text-section" class="text-section">
+      <textarea
+        name="text-input"
+        id="text-input"
+        class="text-input"
+        placeholder="메세지를 입력해주세요"
+        onkeydown="resize(this)"
+        onkeyup="resize(this)"
+      ></textarea>
+    </div>
+    <button type="button" class="download-button">이미지 저장하기</button>
+
+    <div class="modal hidden">
+      <section class="capture-modal"></section>
+      <div class="overlay"></div>
+    </div>
+
+    <script src="./main.js"></script>
+  </body>
+</html>
