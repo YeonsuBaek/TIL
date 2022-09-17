@@ -10,14 +10,13 @@
   </head>
   <body>
     <div id="text-section" class="text-section">
-      <textarea
-        name="text-input"
-        id="text-input"
+      <pre
         class="text-input"
-        placeholder="메세지를 입력해주세요"
-        onkeydown="resize(this)"
-        onkeyup="resize(this)"
-      ></textarea>
+        contenteditable="true"
+        onkeyup="resize()"
+        onkeydown="resize()"
+      ></pre>
+      <div class="text-placeholder">write a letter</div>
     </div>
     <button type="button" class="download-button">이미지 저장하기</button>
 
