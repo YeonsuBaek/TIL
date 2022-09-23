@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>📧 Message 📧</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+  </head>
+  <body>
+    <div id="text-section" class="text-section">
+      <pre
+        class="text-input"
+        contenteditable="true"
+        onkeyup="resize()"
+        onkeydown="resize()"
+      ></pre>
+      <div class="text-placeholder">write a letter</div>
+    </div>
+    <button type="button" class="download-button">이미지 저장하기</button>
+
+    <div class="modal hidden">
+      <section class="capture-modal"></section>
+      <div class="overlay"></div>
+    </div>
+
+    <script src="./main.js"></script>
+  </body>
+</html>
