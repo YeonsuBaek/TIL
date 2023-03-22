@@ -104,6 +104,51 @@ html 내부 북마크(id로 태그 이동)와 같이 URL이 지정하는 리소�
 
 서버에 전송하는 정보가 아니기 때문에 플래그먼트가 없어도 웹 페이지를 불러올 수 있다.
 
+## 2. 웹 브라우저 요청 흐름
+
+### Step 1. 웹 브라우저에서 HTTP 요청 메세지 생성
+
+> https://<span style="color:slateblue">www.google.com</span>:<span style="color:indianred">443</span>/search?q=hello&hl=ko
+
+위와 같은 URL을 입력하면 먼저 DNS를 조회하고 HTTPS PORT를 생략한다. 그 후 HTTP 요청 메세지를 생성한다.
+
+> <span style="color:gray">GET</span>/search?q=hello&hl=ko <span style="color:olivedrab">HTTP/1.1</span> <span style="color:slateblue">Host:www.google.com</span>
+
+`GET` 은 서버에 데이터를 요청함을 표시한다. `HTTP/1.1` 은 HTTP 버전을, `Host:` 는 요청 메세지를 받을 서버이다.
+
+### Step 2. HTTP 요청 메세지 전송
+
+![](https://velog.velcdn.com/images/yeonsubaek/post/a0d18050-d551-4cff-81b6-91bb0afb084e/image.jpeg)
+
+[인터넷 네트워크](https://velog.io/@yeonsubaek/HTTP-1.-%EC%9D%B8%ED%84%B0%EB%84%B7-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC)에서 프로토콜 계층을 거치는 과정과 동일하다.  
+HTTP 요청 메세지를 IP와 PORT가 감싸는 형태이다.
+
+_(우체국에 택배를 보낼 때 물건을 상자에 넣고 보낸 이와 받는 이 정보를 작성)_
+
+### Step 3. 서버에서 HTTP 응답 메세지 생성
+
+수 많은 노드를 거쳐 서버 컴퓨터에 도착하게 되면 TCP/IP 패킷은 벗긴다. 안전하게 도착한 HTTP 메세지를 해석하고 응답 메세지를 생성한다.
+
+> HTTP/1.1 200 OK
+> Content-Type: text/html;charset=UTF-8
+> Content-Length: 3423
+>
+> ```html
+> <html>
+>   <body>
+>     ...
+>   </body>
+> </html>
+> ```
+
+정상 응답임을 먼저 알리고, 응답 데이터의 형식과 HTML의 길이를 표시한다.
+
+### Step 4. HTTP 응답 메세지 전송
+
+TCP/IP 패킷으로 HTTP 응답 메세지를 포장해 웹 브라우저에 다시 전달한다.
+
+웹 브라우저는 응답 메세지를 받으면 패킷을 벗기고 HTML을 렌더링하여 콘텐츠를 볼 수 있다.
+
 ---
 
 [모든 개발자를 위한 HTTP 웹 기본 지식](https://www.inflearn.com/course/http-%EC%9B%B9-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC) 강의를 듣고 정리한 내용
