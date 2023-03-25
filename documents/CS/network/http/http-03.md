@@ -171,6 +171,72 @@ TCP/IP가 연결을 새로 맺을 때마다 3 way handshake 시간이 추가된�
 | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
 | ![](https://velog.velcdn.com/images/yeonsubaek/post/2d35833f-51a6-4061-8bcf-5120b9fe10d6/image.jpeg) | ![](https://velog.velcdn.com/images/yeonsubaek/post/d209e45d-52d9-4d00-ae58-06892ddb8f7c/image.jpeg) |
 
+## 5. HTTP 메세지
+
+### 5-1. HTTP 메세지 구조
+
+HTTP 메세지 구조는 시작 라인과 헤더, 공백 라인(CRLF), 메세지 바디로 나눠진다. 공백 라인은 무조건 있어야 하고, HTTP 요청 메세지에서 메세지 바디가 존재하지 않을 수도 있다.
+
+![](https://velog.velcdn.com/images/yeonsubaek/post/f43422c8-beb7-4a7d-b606-82e45fa09132/image.jpeg)
+
+HTTP 공식 스펙은 다음과 같다.
+
+```
+HTTP-message =
+	start-line
+    * (header-field CRLF)
+    CRLF
+    [ message-body ]
+```
+
+### 5-2. 시작 라인
+
+> GET/search?q=hello&hl=ko HTTP/1.1
+
+시작 라인은 요청 메세지와 응답 메세지로 나뉜다.
+
+#### 요청 메세지 (request-line)
+
+요청 메세지는 `method SP(공백) request-target SP HTTP-version CRLF(엔터)` 로 구성되어 있다.
+
+HTTP 메서드(method)의 종류에는 GET(리소스 조회), POST(요청 내역 처리), PUT, DELETE 등이 있다. 서버가 수행해야 할 동작을 지정하는 역할을 한다.
+
+요청 대상(request-target)은 `/search?q=hello&hl=ko` 와 같이 절대경로[?쿼리]로 나타낸다. 참고로 절대경로란 "/"로 시작하는 경로를 말한다.
+
+HTTP 버전(HTTP-version)에는 HTTP/1.1과 HTTP/2, HTTP/3이 있다.
+
+#### 응답 메세지 (status-line)
+
+> HTTP/1.1 200 OK
+
+응답 메세지는 `HTTP-version SP status-code SP reson-phrase CRLF` 로 구성되어 있다.
+
+HTTP 상태 코드(status-code)는 요청의 성공이나 실패를 나타낸다. 대표적으로 200(성공), 400(클라이언트 요청 오류), 500(서버 내부 오류) 등이 있다.
+
+이유 문구(reason-phrase)는 사람이 이해할 수 있는 짧은 상태 코드 설명 글을 말한다. 예를 들어 상태 코드가 200일 때 OK로 나타내어 성공했다는 의미를 전달한다.
+
+### 5-3. HTTP 헤더
+
+> Host: www.google.com
+
+> Content-Type: text/html;charset=UTF-8
+> Content-Length: 3423
+
+헤더 필드는 `field-name:OWS(띄어쓰기 허용) field-value OWS` 로 구성되어 있다.  
+field-name은 대소문자를 구별하지 않고 field-value는 대소문자를 구별한다.
+
+HTTP 헤더는 HTTP 전송에 필요한 모든 부가정보를 제공한다. 그 예로 메시지 바디의 내용, 메시지 바디의 크기, 압축, 인증, 요청 클라이언트 정보, 서버 애플리케이션 정보, 캐시 관리 정보 등이 있다.
+
+### 5-4. HTTP 메시지 바디
+
+> ```
+> <html>
+>  <body>...</body>
+> </html>
+> ```
+
+HTTP 메시지 마디는 실제 전송한 데이터를 담고 있다. HTML 문서, 이미지, 영상, JSON 등 byte로 표현할 수 있는 모든 데이터를 전송할 수 있다.
+
 ---
 
 [모든 개발자를 위한 HTTP 웹 기본 지식](https://www.inflearn.com/course/http-%EC%9B%B9-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC) 강의를 듣고 정리한 내용
