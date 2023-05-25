@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import Header from './Header';
-import OrderForm from './OrderForm';
+import Header from '../layouts/Header';
+import OrderForm from '../components/OrderForm';
 import styles from './ProductDetailPage.module.css';
 
 const ProductDetailPage = (props) => {

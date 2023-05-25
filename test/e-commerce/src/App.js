@@ -1,7 +1,7 @@
-import Header from './components/Header';
+import Header from './layouts/Header';
 import './App.css';
-import ProductListPage from './components/ProductListPage';
-import ProductDetailPage from './components/ProductDetailPage';
+import ProductListPage from './pages/ProductListPage';
+import ProductDetailPage from './pages/ProductDetailPage';
 import { Routes, Route } from 'react-router-dom';
 
 const products = [
