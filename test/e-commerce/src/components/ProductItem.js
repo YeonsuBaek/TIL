@@ -4,9 +4,12 @@ import styles from './ProductItem.module.css';
 const ProductItem = (props) => {
   return (
     <li className={styles.item}>
-      <a href='/'>
+      <a href={'/product/' + props.name}>
         <div className={styles.image}>
-          <img src={props.image} alt={props.name} />
+          <img
+            src={require(`../assets/photos/${props.image}`)}
+            alt={props.name}
+          />
         </div>
         <h2>{props.name}</h2>
         <strong>{props.price}</strong>
