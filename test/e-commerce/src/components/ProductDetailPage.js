@@ -1,5 +1,8 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
+import Header from './Header';
+import OrderForm from './OrderForm';
+import styles from './ProductDetailPage.module.css';
 
 const ProductDetailPage = (props) => {
   let { id } = useParams();
@@ -7,13 +10,16 @@ const ProductDetailPage = (props) => {
 
   return (
     <>
-      <img
-        src={require(`../assets/photos/${product.image}`)}
-        alt={product.name}
-      />
-
+      <Header />
+      <div className={styles.image}>
+        <img
+          src={require(`../assets/photos/${product.image}`)}
+          alt={product.name}
+        />
+      </div>
       <h2>{product.name}</h2>
       <strong>{product.price}</strong>
+      <OrderForm />
     </>
   );
 };
