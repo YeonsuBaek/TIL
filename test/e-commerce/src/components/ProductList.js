@@ -1,11 +1,14 @@
 import React from 'react';
 import styles from './ProductList.module.css';
 import ProductItem from './ProductItem';
+import useProductsStore from '../stores/products';
 
-const ProductList = (props) => {
+const ProductList = () => {
+  const { products } = useProductsStore();
+
   return (
     <ul className={styles.list}>
-      {props.products.map((product) => {
+      {products.map((product) => {
         return (
           <ProductItem
             name={product.name}

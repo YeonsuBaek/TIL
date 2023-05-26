@@ -6,29 +6,6 @@ import { Routes, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import NewProductPage from './pages/NewProductPage';
 
-const products = [
-  {
-    name: '버터바 1종',
-    price: '3,500원',
-    image: 'product-01-main.jpeg',
-  },
-  {
-    name: '버터바 2종',
-    price: '3,500원',
-    image: 'product-01-main.jpeg',
-  },
-  {
-    name: '버터바 3종',
-    price: '3,500원',
-    image: 'product-01-main.jpeg',
-  },
-  {
-    name: '버터바 4종',
-    price: '3,500원',
-    image: 'product-01-main.jpeg',
-  },
-];
-
 function App() {
   return (
     <>
@@ -38,14 +15,11 @@ function App() {
           element={
             <>
               <Header />
-              <ProductListPage products={products} />
+              <ProductListPage />
             </>
           }
         />
-        <Route
-          path='/product/:id'
-          element={<ProductDetailPage products={products} />}
-        />
+        <Route path='/product/:id' element={<ProductDetailPage />} />
         <Route path='/login' element={<Login />} />
         <Route path='/new-product' element={<NewProductPage />} />
       </Routes>

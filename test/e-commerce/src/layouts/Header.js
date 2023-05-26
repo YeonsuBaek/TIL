@@ -22,9 +22,12 @@ const Header = () => {
 
       {JSON.parse(localStorage.getItem('adminID')) ===
       `${process.env.REACT_APP_ADMIN_ID}` ? (
-        <button type='button' onClick={handleLogout}>
-          <img src={user} alt='관리자 메뉴 열기' />
-        </button>
+        <>
+          <Link to='/new-product'>상품 등록</Link>
+          <button type='button' onClick={handleLogout}>
+            <img src={user} alt='관리자 메뉴 열기' />
+          </button>
+        </>
       ) : (
         <Link to='/login' className={styles.login}>
           로그인

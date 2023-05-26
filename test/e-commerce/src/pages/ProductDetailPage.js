@@ -3,19 +3,18 @@ import { useParams } from 'react-router-dom';
 import Header from '../layouts/Header';
 import OrderForm from '../components/OrderForm';
 import styles from './ProductDetailPage.module.css';
+import useProductsStore from '../stores/products';
 
-const ProductDetailPage = (props) => {
+const ProductDetailPage = () => {
+  const { products } = useProductsStore();
   let { id } = useParams();
-  let product = props.products.find((v) => v.name === id);
+  let product = products.find((v) => v.name === id);
 
   return (
     <>
       <Header />
       <div className={styles.image}>
-        <img
-          src={require(`../assets/photos/${product.image}`)}
-          alt={product.name}
-        />
+        <img src={product.image} alt={product.name} />
       </div>
       <div className={styles.info}>
         <h2 className={styles.name}>{product.name}</h2>

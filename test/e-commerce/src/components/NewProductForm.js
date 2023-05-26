@@ -33,6 +33,9 @@ const NewProductForm = () => {
       image: image,
     });
     navigate('/');
+    setName('');
+    setPrice('');
+    setImage('');
   };
 
   return (
