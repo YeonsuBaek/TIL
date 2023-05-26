@@ -2,10 +2,28 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import logo from '../assets/icons/logo.svg';
 import useAdminStore from '../stores/admin';
+import useUserStore from '../stores/user';
+import { auth } from '../firebase-config';
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 
 const Login = () => {
   const { adminID, adminPW, setAdminID, setAdminPW } = useAdminStore();
+  const { setUserEmail, setUserName } = useUserStore();
   const navigate = useNavigate();
+
+  const handleClickGoogle = () => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+      .then((data) => {
+        console.log(data);
+        setUserEmail(data.user.email);
+        setUserName(data.user.displayName);
+        navigate('/');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const handleChangeId = (e) => {
     setAdminID(e.target.value);
@@ -40,7 +58,9 @@ const Login = () => {
       </Link>
 
       <h2>회원 전용 간편 로그인</h2>
-      <button type='button'>구글 3초만에 시작하기</button>
+      <button type='button' onClick={handleClickGoogle}>
+        구글 3초만에 시작하기
+      </button>
 
       <h2>관리자 전용 로그인</h2>
       <form onSubmit={handleSubmitAdmin}>

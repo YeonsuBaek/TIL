@@ -3,10 +3,12 @@ import logo from '../assets/icons/logo.svg';
 import styles from './Header.module.css';
 import { Link } from 'react-router-dom';
 import useAdminStore from '../stores/admin';
+import useUserStore from '../stores/user';
 import user from '../assets/icons/user.svg';
 
 const Header = () => {
   const { adminID, setAdminID, setAdminPW } = useAdminStore();
+  const { userEmail, userName } = useUserStore();
 
   const handleLogout = () => {
     setAdminID('');
@@ -28,6 +30,8 @@ const Header = () => {
             <img src={user} alt='관리자 메뉴 열기' />
           </button>
         </>
+      ) : userEmail ? (
+        <button type='button'>{userName}님</button>
       ) : (
         <Link to='/login' className={styles.login}>
           로그인
