@@ -31,7 +31,10 @@ const Header = () => {
           </button>
         </>
       ) : userEmail ? (
-        <button type='button'>{userName}님</button>
+        <>
+          <Link to={'/cart/' + userName}>장바구니</Link>
+          <button type='button'>{userName}님</button>
+        </>
       ) : (
         <Link to='/login' className={styles.login}>
           로그인

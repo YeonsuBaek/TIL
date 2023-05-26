@@ -1,10 +1,17 @@
 import { create } from 'zustand';
 
 const useCartsStore = create((set) => ({
-  carts: { 홍길동: [], 홍길순: [] },
+  carts: {},
   setCarts: (newCart) =>
     set((prev) => ({
       carts: { ...prev.carts, [newCart]: [] },
+    })),
+  addToCart: (user, product) =>
+    set((prev) => ({
+      carts: {
+        ...prev.carts,
+        [user]: prev.carts[user] ? [...prev.carts[user], product] : [product],
+      },
     })),
 }));
 

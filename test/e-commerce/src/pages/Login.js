@@ -10,7 +10,7 @@ import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 const Login = () => {
   const { adminID, adminPW, setAdminID, setAdminPW } = useAdminStore();
   const { setUserEmail, setUserName } = useUserStore();
-  const { setCarts } = useCartsStore();
+  const { carts, setCarts } = useCartsStore();
   const navigate = useNavigate();
 
   const handleClickGoogle = () => {
@@ -27,6 +27,10 @@ const Login = () => {
         console.log(err);
       });
   };
+
+  React.useEffect(() => {
+    console.log(carts);
+  }, [carts]);
 
   const handleChangeId = (e) => {
     setAdminID(e.target.value);
