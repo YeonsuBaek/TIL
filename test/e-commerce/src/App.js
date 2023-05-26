@@ -4,6 +4,7 @@ import ProductListPage from './pages/ProductListPage';
 import ProductDetailPage from './pages/ProductDetailPage';
 import { Routes, Route } from 'react-router-dom';
 import Login from './pages/Login';
+import NewProductPage from './pages/NewProductPage';
 
 const products = [
   {
@@ -46,6 +47,7 @@ function App() {
           element={<ProductDetailPage products={products} />}
         />
         <Route path='/login' element={<Login />} />
+        <Route path='/new-product' element={<NewProductPage />} />
       </Routes>
     </>
   );
