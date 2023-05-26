@@ -9,7 +9,9 @@ const Header = () => {
       <Link className={styles.logo} to='/'>
         <img className={styles.logoImg} src={logo} alt='아이디어스' />
       </Link>
-      <a href='/'>로그인</a>
+      <a href='/' className={styles.login}>
+        로그인
+      </a>
     </header>
   );
 };

@@ -11,8 +11,10 @@ const ProductItem = (props) => {
             alt={props.name}
           />
         </div>
-        <h2>{props.name}</h2>
-        <strong>{props.price}</strong>
+        <div className={styles.info}>
+          <h2 className={styles.name}>{props.name}</h2>
+          <strong className={styles.price}>{props.price}</strong>
+        </div>
       </a>
     </li>
   );

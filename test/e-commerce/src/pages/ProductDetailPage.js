@@ -17,8 +17,10 @@ const ProductDetailPage = (props) => {
           alt={product.name}
         />
       </div>
-      <h2>{product.name}</h2>
-      <strong>{product.price}</strong>
+      <div className={styles.info}>
+        <h2 className={styles.name}>{product.name}</h2>
+        <strong className={styles.price}>{product.price}</strong>
+      </div>
       <OrderForm />
     </>
   );

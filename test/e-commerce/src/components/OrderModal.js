@@ -11,8 +11,12 @@ const OrderModal = () => {
         <option>황치즈 (+1000원)</option>
       </select>
       <div className={styles.buttons}>
-        <button type='button'>장바구니</button>
-        <button type='button'>바로구매</button>
+        <button className={styles.cart} type='button'>
+          장바구니
+        </button>
+        <button className={styles.buy} type='button'>
+          바로구매
+        </button>
       </div>
     </aside>
   );
