@@ -3,12 +3,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import logo from '../assets/icons/logo.svg';
 import useAdminStore from '../stores/admin';
 import useUserStore from '../stores/user';
+import useCartsStore from '../stores/carts';
 import { auth } from '../firebase-config';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 
 const Login = () => {
   const { adminID, adminPW, setAdminID, setAdminPW } = useAdminStore();
   const { setUserEmail, setUserName } = useUserStore();
+  const { setCarts } = useCartsStore();
   const navigate = useNavigate();
 
   const handleClickGoogle = () => {
@@ -18,6 +20,7 @@ const Login = () => {
         console.log(data);
         setUserEmail(data.user.email);
         setUserName(data.user.displayName);
+        setCarts(data.user.email);
         navigate('/');
       })
       .catch((err) => {
