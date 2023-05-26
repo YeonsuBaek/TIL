@@ -3,6 +3,7 @@ import './App.css';
 import ProductListPage from './pages/ProductListPage';
 import ProductDetailPage from './pages/ProductDetailPage';
 import { Routes, Route } from 'react-router-dom';
+import Login from './pages/Login';
 
 const products = [
   {
@@ -44,6 +45,7 @@ function App() {
           path='/product/:id'
           element={<ProductDetailPage products={products} />}
         />
+        <Route path='/login' element={<Login />} />
       </Routes>
     </>
   );
