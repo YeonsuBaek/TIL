@@ -6,6 +6,10 @@ import useProductsStore from '../stores/products';
 const ProductList = () => {
   const { products } = useProductsStore();
 
+  React.useEffect(() => {
+    console.log(products);
+  }, []);
+
   return (
     <ul className={styles.list}>
       {products.map((product) => {
