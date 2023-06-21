@@ -82,4 +82,68 @@ const b = superPrint([1, 2, true, false], [])
 ```
 
 타입스크립트는 제너릭이 처음 사용되는 지점을 기반으로 이 탑이 무엇인지 알게 됨  
-꺽쇠 안에는 제너릭 이름만 지정해주면 됨
+꺽쇠 안에는 제너릭 이름만 지정해주면 됨  
+_제너릭 이름은 대문자로 시작하는 어떤 영문이든 가능_
+
+## Conclusions
+
+```ts
+function superPrint<V>(a: V[]) {
+  return a[0];
+}
+```
+
+좀 덜 무섭게 생긴 제네릭도 생성 가능
+
+```ts
+const a = superPrint<boolean>([1, 2, 3, 4]); //error
+```
+
+boolean으로 덮어썼기 때문에 에러 발생  
+하지만 이 방식보다는 기존처럼 스스로 타입을 유추하는 것이 더 좋음
+
+제네릭은 타입 생성 뿐만 아니라 타입 확장도 가능
+
+```ts
+type Player<E> = {
+  name: string;
+  extraInfo: E;
+};
+
+type NicoExtra = {
+  favFood: string;
+};
+
+type NicoPlayer = Player<NicoExtra>;
+
+const nico: NicoPlayer = {
+  name: 'nico',
+  extraInfo: {
+    favFood: 'pizza',
+  },
+};
+
+const lynn: Player<null> = {
+    name: "lynn"
+    extraInfo: null
+}
+```
+
+이 외에도 제네릭은 많은 곳에 쓰임  
+예를 들어 대부분의 기본적인 타입스크립트의 타입은 제네릭으로 만들어짐
+
+```ts
+type A = Array<number>;
+
+let a: A = [1, 2, 3, 4];
+```
+
+`Array` 내장 함수는 `interface Array<T>var Array: ...` 로 이루어짐
+
+```ts
+function printAllNumbers(arr: Array<number>) {
+  //
+}
+
+useState<number>();
+```
