@@ -58,3 +58,28 @@ const superPrint: SuperPrint = (arr) => arr[0];
 
 const a = superPrint([1, 2, true, false, 'hello']);
 ```
+
+그렇다면 왜 굳이 Generic을 사용해야 할까?  
+any를 사용하면 어차피 에러도 안날텐데?
+
+```ts
+const b = superPrint([1, 2, 3, 4]);
+b.toUpperCase();
+```
+
+any 타입이라면 `toUpperCase` 함수를 실행할 때 에러가 발생하지 않음  
+Generic 타입이라면 에러를 발생시킴
+
+제너릭을 두 개 사용하고 싶다면?
+
+```ts
+type SuperPrint = <T, M>(a: T[] b: M>) => T
+
+const superPrint: SuperPrint = (a) => a[0]
+
+const a = superPrint([1, 2, 3, 4], "x")
+const b = superPrint([1, 2, true, false], [])
+```
+
+타입스크립트는 제너릭이 처음 사용되는 지점을 기반으로 이 탑이 무엇인지 알게 됨  
+꺽쇠 안에는 제너릭 이름만 지정해주면 됨
