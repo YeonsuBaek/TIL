@@ -119,12 +119,17 @@ class Dict {
 }
 
 class Word {
-  constructor(public term: string, public def: string) {}
+  constructor(public readonly term: string, public def: string) {}
 }
 
 const kimchi = new Word('kimchi', '한국의 음식');
+
+kimchi.term = 'xxxx'; // Error: readonly property
 
 const dict = new Dict();
 dict.add(kimchi);
 dict.def('kimchi');
 ```
+
+public 뒤에 readonly를 추가하면 읽기만 가능.  
+주로 누군가가 데이터를 덮어쓰는 것을 방지하기 위해 사용.
