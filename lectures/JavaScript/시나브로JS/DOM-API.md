@@ -41,3 +41,9 @@ element 하나에 event가 잡혀있다면 그것 실행, 그 부모의 event를
 #### 부모 event를 실행하기 싫다면?
 
 `event.stopPropagation()`
+
+### data- 속성
+
+태그 내에 type, class와 같은 속성은 브라우저에서 제공함.
+
+data- 속성은 data- 뒤에 맘대로 붙여서 사용할 수 있음.
