@@ -47,3 +47,9 @@ element 하나에 event가 잡혀있다면 그것 실행, 그 부모의 event를
 태그 내에 type, class와 같은 속성은 브라우저에서 제공함.
 
 data- 속성은 data- 뒤에 맘대로 붙여서 사용할 수 있음.
+
+## 질문
+
+1. 클래스명
+
+`.total_count` 와 `.cart-count` 의 차이
