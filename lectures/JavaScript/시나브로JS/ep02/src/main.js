@@ -30,7 +30,7 @@ function sumAllCounts(countMap) {
   }, 0);
 }
 
-function getProductsHTML(product) {
+function getProductsHTML(product, count = 0) {
   return `
   <div class='product' data-product-id="${product.id}">
     <img src="${product.images[0]}" alt="Image of ${product.name}" />
@@ -39,7 +39,9 @@ function getProductsHTML(product) {
       <span>Price: ${product.regularPrice}</span>
       <div>
         <button type='button' class='disabled:cursor-not-allowed disabled:opacity-50 btn-decrease bg-green-200 hover:bg-green-300 text-green-800 py-1 px-3 rounded-full'>-</button>
-        <span class='cart-count text-green-800'></span>
+        <span class='cart-count text-green-800'>${
+          count === 0 ? '' : count
+        }</span>
         <button type='button' class='btn-increase bg-green-200 hover:bg-green-300 text-green-800 py-1 px-3 rounded-full'>+</button>
       </div>
     </div>
@@ -55,6 +57,51 @@ async function main() {
   });
   const countMap = {};
 
+  const updateProductCount = (productId) => {
+    const productElement = document.querySelector(
+      `.product[data-product-id='${productId}']`
+    );
+    const cartCountElement = productElement.querySelector('.cart-count');
+    cartCountElement.innerHTML = countMap[productId];
+    if (countMap[productId] === 0) {
+      cartCountElement.innerHTML = '';
+    }
+  };
+
+  const updateCart = () => {
+    const productIds = Object.keys(countMap);
+
+    document.querySelector('.cart_items').innerHTML = productIds
+      .map((productId) => {
+        const productInCart = productMap[productId];
+        if (countMap[productId] === 0) return '';
+        return getProductsHTML(productInCart, countMap[productId]);
+      })
+      .join('');
+
+    document.querySelector('.total_count').innerHTML = `(${sumAllCounts(
+      countMap
+    )})`;
+  };
+
+  const increaseCount = (productId) => {
+    if (countMap[productId] === undefined) {
+      countMap[productId] = 0;
+    }
+    countMap[productId] += 1;
+    updateProductCount(productId);
+    updateCart();
+  };
+  const decreaseCount = (productId) => {
+    if (countMap[productId] === undefined) {
+      countMap[productId] = 0;
+    }
+    countMap[productId] -= 1;
+    updateViewsForCount();
+    updateProductCount(productId);
+    updateCart();
+  };
+
   document.querySelector('#products').innerHTML = products
     .map((product) => getProductsHTML(product))
     .join('');
@@ -63,38 +110,33 @@ async function main() {
     const targetElement = event.target;
     const productElement = findElement(targetElement, '.product');
     const productId = productElement.getAttribute('data-product-id');
-    const product = productMap[productId];
 
     if (
       targetElement.matches('.btn-decrease') ||
       targetElement.matches('.btn-increase')
     ) {
-      if (countMap[productId] === undefined) {
-        countMap[productId] = 0;
-      }
       if (targetElement.matches('.btn-decrease')) {
-        countMap[productId] -= 1;
+        decreaseCount(productId);
       } else if (targetElement.matches('.btn-increase')) {
-        countMap[productId] += 1;
+        increaseCount(productId);
       }
-      const cartCount = productElement.querySelector('.cart-count');
-      cartCount.innerHTML = countMap[productId];
-      if (countMap[productId] === 0) {
-        cartCount.innerHTML = '';
-      } else {
-        const productIds = Object.keys(countMap);
+    }
+  });
 
-        document.querySelector('.cart_items').innerHTML = productIds
-          .map((productId) => {
-            const productInCart = productMap[productId];
-            return getProductsHTML(productInCart);
-          })
-          .join('');
+  document.querySelector('.cart_items').addEventListener('click', () => {
+    const targetElement = event.target;
+    const productElement = findElement(targetElement, '.product');
+    const productId = productElement.getAttribute('data-product-id');
+
+    if (
+      targetElement.matches('.btn-decrease') ||
+      targetElement.matches('.btn-increase')
+    ) {
+      if (targetElement.matches('.btn-decrease')) {
+        decreaseCount(productId);
+      } else if (targetElement.matches('.btn-increase')) {
+        increaseCount(productId);
       }
-
-      document.querySelector('.total_count').innerHTML = `(${sumAllCounts(
-        countMap
-      )})`;
     }
   });
 

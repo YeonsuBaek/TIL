@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body.displaying-cart {
+  overflow-y: hidden;
+}
+
 .displaying-cart .cart-layer {
   display: block;
 }
