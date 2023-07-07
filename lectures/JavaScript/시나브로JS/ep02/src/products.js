@@ -1,22 +1,26 @@
 import test from './test.json?raw';
+import { findElement } from './utils';
 
-export function getProductsHTML(product, count = 0) {
-  return `
-    <div class='product' data-product-id="${product.id}">
-      <img src="${product.images[0]}" alt="Image of ${product.name}" />
-      <p>${product.name}</p>
-      <div class='flex items-center justify-between'>
-        <span>Price: ${product.regularPrice}</span>
-        <div>
-          <button type='button' class='disabled:cursor-not-allowed disabled:opacity-50 btn-decrease bg-green-200 hover:bg-green-300 text-green-800 py-1 px-3 rounded-full'>-</button>
-          <span class='cart-count text-green-800'>${
-            count === 0 ? '' : count
-          }</span>
-          <button type='button' class='btn-increase bg-green-200 hover:bg-green-300 text-green-800 py-1 px-3 rounded-full'>+</button>
-        </div>
+export function getProductElement(product, count = 0) {
+  const element = document.createElement('div');
+  element.classList.add('product');
+  element.setAttribute('data-product-id', product.id);
+
+  element.innerHTML = `
+    <img src="${product.images[0]}" alt="Image of ${product.name}" />
+    <p>${product.name}</p>
+    <div class='flex items-center justify-between'>
+      <span>Price: ${product.regularPrice}</span>
+      <div>
+        <button type='button' class='disabled:cursor-not-allowed disabled:opacity-50 btn-decrease bg-green-200 hover:bg-green-300 text-green-800 py-1 px-3 rounded-full'>-</button>
+        <span class='cart-count text-green-800'>${
+          count === 0 ? '' : count
+        }</span>
+        <button type='button' class='btn-increase bg-green-200 hover:bg-green-300 text-green-800 py-1 px-3 rounded-full'>+</button>
       </div>
     </div>
   `;
+  return element;
 }
 
 async function getProducts() {
@@ -30,16 +34,38 @@ async function getProducts() {
   }
 }
 
-export async function setupProducts({ container }) {
+export async function setupProducts({
+  container,
+  onDecreaseClick,
+  onIncreaseClick,
+}) {
   const products = await getProducts();
   const productMap = {};
   products.forEach((product) => {
     productMap[product.id] = product;
   });
 
-  document.querySelector('#products').innerHTML = products
-    .map((product) => getProductsHTML(product))
-    .join('');
+  products.forEach((product) => {
+    const productElement = getProductElement(product);
+    container.appendChild(productElement);
+  });
+
+  container.addEventListener('click', (event) => {
+    const targetElement = event.target;
+    const productElement = findElement(targetElement, '.product');
+    const productId = productElement.getAttribute('data-product-id');
+
+    if (
+      targetElement.matches('.btn-decrease') ||
+      targetElement.matches('.btn-increase')
+    ) {
+      if (targetElement.matches('.btn-decrease')) {
+        onDecreaseClick({ productId });
+      } else if (targetElement.matches('.btn-increase')) {
+        onIncreaseClick({ productId });
+      }
+    }
+  });
 
   const updateCount = ({ productId, count }) => {
     const productElement = container.querySelector(
@@ -52,5 +78,9 @@ export async function setupProducts({ container }) {
     }
   };
 
-  return { updateCount };
+  const getProductById = ({ productId }) => {
+    return productMap[productId];
+  };
+
+  return { updateCount, getProductById };
 }
