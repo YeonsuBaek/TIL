@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
 import { BsFillCalendarHeartFill } from 'react-icons/bs';
 import Datetime from 'react-datetime';
+import moment from 'moment';
 
-const DateSelection = () => {
+const DateSelection = ({ format = 'YYYY-MM-DD', autoFormatting = true }) => {
   const [date, setDate] = useState('');
   const [open, setOpen] = useState(false);
-  const format = 'YYYY-MM-DD';
 
   const getSeparator = () => {
     const regex = /[^0-9a-zA-Z]+/;
     const match = format.match(regex);
-    console.log(match);
 
     if (match) {
       const symbol = match[0];
@@ -29,21 +28,44 @@ const DateSelection = () => {
 
   const separator = getSeparator();
 
+  const handleCursorPosition = (target) => {
+    const { value, selectionStart } = target;
+    let cursorPosition = selectionStart || value.length;
+
+    // if (cursorPosition === value.length) {
+    //   cursorPosition += 1;
+    // }
+
+    setTimeout(() => {
+      target.setSelectionRange(cursorPosition, cursorPosition);
+    });
+  };
+
   const handleChangeDate = (e) => {
-    let currentDate = e.target.value;
+    const { target } = e;
+    const { value } = target;
 
-    if (separator.symbol && separator.indexes.length > 0) {
-      separator.indexes.forEach((index) => {
-        if (currentDate.length > index && date[index] !== separator.symbol) {
-          currentDate =
-            currentDate.slice(0, index) +
-            separator.symbol +
-            currentDate.slice(index);
-        }
-      });
+    if (autoFormatting) {
+      handleCursorPosition(target);
+
+      let currentDate = [...value]
+        .filter((str) => str !== separator.symbol)
+        .join('');
+
+      if (separator.symbol && separator.indexes.length > 0) {
+        separator.indexes.forEach((index) => {
+          if (currentDate.length > index) {
+            currentDate =
+              currentDate.slice(0, index) +
+              separator.symbol +
+              currentDate.slice(index);
+          }
+        });
+      }
+      setDate(currentDate);
+    } else {
+      setDate(value);
     }
-
-    setDate(currentDate);
   };
 
   const handleClickButton = () => {
@@ -52,9 +74,19 @@ const DateSelection = () => {
 
   const handleChangeCalendar = (selected) => {
     const formattedDate = selected.format(format);
-    console.log(formattedDate);
     setDate(formattedDate);
     setOpen(false);
+  };
+
+  const checkValidDate = (e) => {
+    const { value } = e.target;
+    const selectedDate = moment(value, format, true);
+    console.log(selectedDate);
+    const isValid = selectedDate.isValid();
+
+    if (!isValid) {
+      setDate('');
+    }
   };
 
   return (
@@ -64,8 +96,7 @@ const DateSelection = () => {
         value={date}
         placeholder={format}
         onChange={handleChangeDate}
-        maxLength={format.length}
-        minLength={format.length}
+        onBlur={checkValidDate}
       />
       <button type='button' onClick={handleClickButton}>
         <BsFillCalendarHeartFill />

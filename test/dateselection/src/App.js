@@ -4,7 +4,7 @@ import './App.css';
 function App() {
   return (
     <div style={{ margin: '20px' }}>
-      <DateSelection />
+      <DateSelection format='YYYY/MM/DD' autoFormatting={true} />
     </div>
   );
 }
